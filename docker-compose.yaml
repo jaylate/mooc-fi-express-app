@@ -1,0 +1,15 @@
+services:
+  express-app:
+    image: jaylate/mooc-fi-express-app
+    container_name: express-app
+    ports:
+      - 8080:8080
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    environment:
+      - DOCKER_API_VERSION=1.52
+      - WATCHTOWER_POLL_INTERVAL=60
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:z
+    command: express-app
